@@ -45,4 +45,5 @@ def scan_tokens(file_name):
 
     return no_errors, read_tokens
 
+lexer = lex.lex()
 
