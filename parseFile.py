@@ -4,6 +4,7 @@ from lexer import scan_tokens, find_column
 '''
 P -- program with expressions
 E -- expression
+V -- variable (I know, bad name, but I can't create other)
 D -- disjunction
 C -- conjunction
 I -- ID
@@ -12,7 +13,8 @@ P -> EP | E | \epsilon
 E -> I. | I:-D.
 I -> string
 D -> C,D | C
-C -> I;C | I | (D)
+C -> V;C | V
+V -> I | (D)
 '''
 
 class Node:
@@ -74,14 +76,18 @@ class Parser:
         self.current = next(self.lex)
         return Node(None, None, token.value)
 
-    # C -> I;C | I | (D)
-    def conj(self):
+    # V -> I | (D)
+    def var(self):
         if self.accept('OPEN'):
             node = self.disj()
             if self.expect('CLOSE'):
                 return node
             return None
-        left = self.id()
+        return self.id()
+
+    # C -> V;C | V
+    def conj(self):
+        left = self.var()
         if self.accept('AND'):
             right = self.conj()
             return Node(left, right, 'conj')
@@ -116,7 +122,6 @@ class Parser:
             return left
         right = self.prog()
         return Node(left, right, 'prog')
-
 
 def parse_file(file_name):
     no_error, tokens = scan_tokens(file_name)
