@@ -1,4 +1,8 @@
 
+a b c.
+a (b c).
+a (((((B))))) :- (a). 
+a (b (c d)) :- ((x (w (c d) a w))), (a ((a))).
 f.
 f :- g.
 f :- g, h; t.
@@ -26,7 +30,6 @@ a b c :- b (c a).
 a (b (c d)) :- x (w (c d) a w).
 
 a (b (c d)) :- ((x (w (c d) a w))).
-a (b (c d)) :- ((x (w (c d) a w))), (a ((a))).
 f (a (b c) d (e (f g))).
 odd (cons H (cons H1 T)) (cons H T1) :- odd T T1. 
 odd (cons H nil) nil. 

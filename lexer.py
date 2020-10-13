@@ -28,6 +28,7 @@ def t_error(t):
     no_errors = False
     print("SCANNER ERROR: illegal character '%s': line %i, colon %i" % (t.value[0], t.lineno, find_column(t)))
     t.lexer.skip(1)
+    raise ValueError("")
 
 def scan_tokens(file_name):
     lexer = lex.lex()
