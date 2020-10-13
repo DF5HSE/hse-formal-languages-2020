@@ -2,8 +2,8 @@ import ply.lex as lex
 
 tokens = ['CORK', 'ID', 'DEL', 'AND', 'OR', 'OPEN', 'CLOSE']
 
-t_AND = ';'
-t_OR = ','
+t_AND = ','
+t_OR = ';'
 t_ID = r'[a-zA-Z][a-zA-Z_0-9]*'
 t_CORK = r':-'
 t_DEL = r'[.]'

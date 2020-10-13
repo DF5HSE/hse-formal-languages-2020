@@ -15,8 +15,8 @@ ID -- identifier
 
 seq -> def | def seq
 def -> atom. | atom:-disj.
-disj -> conj | conj,disj
-conj -> oper | oper;conj
+disj -> conj | conj;disj
+conj -> oper | oper,conj
 oper -> atom | (disj)
 atom -> ID | ID tail
 tail -> atom | atombr | atombr tail
@@ -36,9 +36,9 @@ def p_def(p):
     '''def : atom DEL
            | atom CORK disj DEL '''
     if len(p) == 3:
-        p[0] = 'HEAD (' + p[1] + ')'
+        p[0] = 'DEF (' + p[1] + ')'
     else:
-        p[0] = 'HEAD (' + p[1] + ') BODY (' + p[3] + ')'
+        p[0] = 'DEF (' + p[1] + ') (' + p[3] + ')'
 
 def p_disj(p):
     '''disj : conj
@@ -108,8 +108,6 @@ with open(sys.argv[1], 'r') as inf:
     result = parser.parse(inf.read())
     print(result)
   except ValueError:
-    sys.stdout = sys.stderr
-    print("Fail in parser")
     pass
 
 
